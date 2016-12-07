@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tangram</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="author" content="Thilina Fong" />
+    <meta name="description" content="" />
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            padding: 10px;
+        }
+
+        #tangram{
+            width: 450px;
+            height:450px;
+            overflow: hidden;
+        }
+        .wrap{
+            position: relative;
+            width:450px;
+            height: 600px;
+        }
+        .t{
+            position: absolute;
+            top:0;
+            left:0;
+            width: 0;
+            height: 0;
+            transform-origin:0 0;
+        }
+        .t1{
+            border-top: 318.2px solid #B5D338;
+            border-right: 318.2px solid transparent;
+            transform: translate(225px, 225px) rotate(-135deg);
+        }
+        .t2{
+            border-top: 318.2px solid #D0E969;
+            border-right: 318.2px solid transparent;
+            transform: translate(225px, 225px) rotate(135deg);
+        }
+        .t3{
+            width: 159.1px;
+            height: 159.1px;
+            background: #C6C6C6;
+            transform: translate(225px,225px) rotate(45deg);
+        }
+        .t4{
+            border-top: 159.1px solid #95288C;
+            border-right: 159.1px solid transparent;
+            transform: translate(225px,225px) rotate(-45deg);
+        }
+        .t5{
+            border-top: 159.1px solid #D7E98B;
+            border-right: 159.1px solid transparent;
+            transform: translate(112.5px,337.5px) rotate(45deg);
+        }
+        .t6{
+            width: 225px;
+            height: 112.5px;
+            transform: translate(450px) rotate(90deg) skew(45deg);
+            background: #728912;
+        }
+        .t7{
+            border-top: 225px solid #D0E969;
+            border-right: 225px solid transparent;
+            transform: translate(450px,450px) rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="tangram">
+        <div class="wrap">
+            <div class="t t1 t11"></div>
+            <div class="t t2 t22"></div>
+            <div class="t t3 t33"></div>
+            <div class="t t4 t44"></div>
+            <div class="t t5 t55"></div>
+            <div class="t t6 t66"></div>
+            <div class="t t7 t77"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

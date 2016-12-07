@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MODERNizr</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="author" content="Thilina Fong" />
+    <meta name="description" content="" />
+    <script type="text/javascript" src="./modernizr.js"></script>
+    <script type="text/javascript" src="./jquery-3.0.0.min.js"></script>
+</head>
+<body>
+<div id="container">15816277995</div>
+<script type="text/javascript">
+    var mizr=$('html').attr('class');
+    $('#container').html(mizr);
+
+
+    var cssText='#container{max-width:100%;background:#600;color:#FFF;padding:20px;}';
+    function addCss(cssText){
+        var tagHead=document.getElementsByTagName('head')[0];
+        var tagStyle=document.createElement('style');
+        var textCSS=document.createTextNode(cssText);
+
+        tagStyle.type='text/css';
+        tagStyle.appendChild(textCSS);
+        tagHead.appendChild(tagStyle);
+    }
+    addCss(cssText);
+</script>
+</body>
+</html>

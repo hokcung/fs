@@ -1,0 +1,229 @@
+//?????0.QueryStringToJSON
+function QueryStringToJSON(querystring,hasMark) {
+  var hasMark=hasMark || false;
+  var pairs;
+  if(hasMark){
+    pairs=querystring.slice(1).split('&');
+  }else{
+    pairs=querystring.split('&');
+  }
+  var result={};
+  pairs.forEach(function(pair){
+    pair=pair.split('=');
+    result[pair[0]]=decodeURIComponent(pair[1] || '');
+  });
+  return JSON.parse(JSON.stringify(result));
+}
+//?????1 showTime顯示時間，css
+function showTime(objDate){
+  var datePart='<span class="date_part_fif03">'+double_09(objDate.getFullYear())+'/'+double_09(objDate.getMonth()+1)+'/'+double_09(objDate.getDate())+'</span>';
+  var timePart='<span class="time_part_fif03">T'+double_09(objDate.getHours())+':'+double_09(objDate.getMinutes())+':'+double_09(objDate.getSeconds())+'</span>';
+  return (datePart+timePart);
+}
+function double_09(num){
+  return (num<10?('0'+num):num);
+}
+//?????2.浏览器窗口页面宽度
+window.document.documentElement.getBoundingClientRect().width;
+//?????3.一个整数是否是“4”的N次幂
+$(function(){
+	function isPower4(x){
+		var bool=false;
+		while(x%4===0){
+			x=x/4
+		}
+		if(x===1){
+			bool=true;
+		}
+		return bool;
+	}
+	console.log(isPower4(17));
+});
+//?????4.ontouchstart,ontouchmove,ontouchend
+eleCont.ontouchend=function(ev){
+	txt.innerHTML=ev;
+};
+//?????5.判斷兩個對象或數組是否相等
+Object.prototype.equals = function(obj){
+    if(this == obj)
+        return true;
+    if(typeof(obj)=="undefined"||obj==null||typeof(obj)!="object")
+        return false;
+    var length = 0; var length1=0;
+    for(var ele in this) {
+        length++;
+    }
+    for(var ele in obj) {
+        length1++;
+    }
+    if(length!=length1)
+        return false;
+    if(obj.constructor==this.constructor){
+        for(var ele in this){
+            if(typeof(this[ele])=="object") {
+                if(!this[ele].equals(obj[ele]))
+                    return false;
+            }
+            else if(typeof(this[ele])=="function"){
+                if(!this[ele].toString().equals(obj[ele].toString()))
+                    return false;
+            }
+            else if(this[ele]!=obj[ele])
+                return false;
+        }
+        return true;
+    }
+    return false;
+};
+arr1.toString()==arr2.toString()
+obj1.equals(obj2);
+//?????6.波浪動畫siri.wave
+function SiriWave(opt){
+	this.opt = opt || {};
+
+	this.K = 1.8;
+	this.F = 3;
+	this.speed = this.opt.speed || 0.1;
+	this.noise = this.opt.noise || 0;
+	this.phase = this.opt.phase || 0;
+
+	if (!devicePixelRatio) devicePixelRatio = 1;
+	this.width = devicePixelRatio * (this.opt.width || 320);
+	this.height = devicePixelRatio * (this.opt.height || 100);
+	this.MAX = (this.height/2)-4;
+
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = this.width;
+	this.canvas.height = this.height;
+	this.canvas.style.width = (this.width/devicePixelRatio)+'px';
+	this.canvas.style.height = (this.height/devicePixelRatio)+'px';
+	(this.opt.container || document.body).appendChild(this.canvas);
+	this.ctx = this.canvas.getContext('2d');
+
+	this.run = false;
+}
+
+SiriWave.prototype = {
+
+	_globalAttenuationFn: function(x){
+		return Math.pow(this.K*4/(this.K*4+Math.pow(x,4)),this.K*2);
+	},
+
+	_drawLine: function(attenuation, color, width){
+		this.ctx.moveTo(0,0);
+		this.ctx.beginPath();
+		this.ctx.strokeStyle = color;
+		this.ctx.lineWidth = width || 1;
+		var x, y;
+		for (var i=-this.K; i<=this.K; i+=0.01) {
+			x = this.width*((i+this.K)/(this.K*2));
+			y = this.height/2 + this.noise * this._globalAttenuationFn(i) * (1/attenuation) * Math.sin(this.F*i-this.phase);
+			this.ctx.lineTo(x, y);
+		}
+		this.ctx.stroke();
+	},
+
+	_clear: function(){
+		this.ctx.globalCompositeOperation = 'destination-out';
+		this.ctx.fillRect(0, 0, this.width, this.height);
+		this.ctx.globalCompositeOperation = 'source-over';
+	},
+
+	_draw: function(){
+		if (!this.run) return;
+
+		this.phase = (this.phase+this.speed)%(Math.PI*64);
+		this._clear();
+		this._drawLine(1.5, 'rgba(255,255,255,0.1)');
+		this._drawLine(2, 'rgba(255,255,255,0.2)');
+		this._drawLine(2.5, 'rgba(255,255,255,0.4)');
+		this._drawLine(3, 'rgba(255,255,255,0.6)');
+		this._drawLine(1, 'rgba(255,255,255,1)', 1.5);
+
+		requestAnimationFrame(this._draw.bind(this), 1000);
+	},
+
+	start: function(){
+		this.phase = 0;
+		this.run = true;
+		this._draw();
+	},
+
+	stop: function(){
+		this.run = false;
+		this._clear();
+	},
+
+	setNoise: function(v){
+		this.noise = Math.min(v, 1)*this.MAX;
+	},
+
+	setSpeed: function(v){
+		this.speed = v;
+	},
+
+	set: function(noise, speed) {
+		this.setNoise(noise);
+		this.setSpeed(speed);
+	}
+
+};
+
+var SW = new SiriWave({
+  width: 2000,
+  height: 500
+});
+SW.setSpeed(0.1);
+SW.setNoise(0.3);
+SW.start();
+//==selection
+if(window.getSelection){
+	if(window.getSelection().empty){	// Chrome
+		window.getSelection().empty();
+	}else if(window.getSelection().removeAllRanges){	// Firefox
+		window.getSelection().removeAllRanges();
+	}
+}else if(document.selection){	// IE?
+	document.selection.empty();
+}
+//?????7.replaceRandom
+var testStr="a8b8c8d8e";
+String.prototype.replaceRandom=function(abc,ddd){
+  var ii=0;
+  var result=this.match(abc);
+  var randomNum=Math.ceil(result.length*Math.random());
+  var resultStr=this.replace(abc,function(match,p1,offset,string){
+    ii++;
+    if(randomNum===ii){
+      return ddd;
+    }else{
+      return p1;
+    }
+  });
+  return resultStr;
+};
+var str2=testStr.replaceRandom(/(8)/ig,"9");
+//?????8.plugin
+(function($){
+  $.fn.reverseText=function(params){
+    params=$.extend({minlength:0,maxlength:999},params);
+    // console.log(this);
+    this.each(function(){
+      var $thisEle=$(this);
+      var originText=$thisEle.text();
+      var newText='';
+      if(originText.length>=params.minlength && originText.length<=params.maxlength){
+        for(var i=originText.length-1;i>=0;i--){
+          newText+=originText.charAt(i);
+        }
+        $thisEle.text(newText);
+      }
+    });
+    return this;
+  };
+})(jQuery);
+
+$(function(){
+  $('p').reverseText();
+});
+//?????9.
